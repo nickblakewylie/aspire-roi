@@ -1,25 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import MainForm from "./forms/MainForm";
+import WinDealsForm from "./forms/WinDealsForm";
+import { ThemeProvider, createTheme } from "@mui/material";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#4caf50",
+      dark: "#357a38",
+    },
+    // You can also customize other colors here
+  },
+  // You can add more theme customizations here
+});
 
 function App() {
+  const [revenue, setRevenue] = useState<number>(0);
+  const [grossMargin, setGrossMargin] = useState<number>(0);
+  const [netProfitMargin, setNetProfitMargin] = useState<number>(0);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <h1>ROI investment calculator</h1>
+        <MainForm
+          revenue={revenue}
+          setRevenue={setRevenue}
+          grossMargin={grossMargin}
+          setGrossMargin={setGrossMargin}
+          netProfitMargin={netProfitMargin}
+          setNetProfitMargin={setNetProfitMargin}
+        />
+        <WinDealsForm
+          revenue={revenue}
+          grossMargin={grossMargin}
+          netProfitMargin={netProfitMargin}
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 
